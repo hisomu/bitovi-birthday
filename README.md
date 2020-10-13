@@ -12,7 +12,7 @@ __*Problem*__: Only the last “name”, “birthMonth”, “birthDay”, “bi
 1. Keep the 'Yes' functionality as is, add each entered birthday in an array, when the 'No' button is selected submit the array to the server.
    - PROS:
      - Reduced number of calls to the server, having to only submit once per session (Benficial if there happends to be a cost per request)
-     - Ensures content is being saved into a seperate array, ensuring the data will be sent to the server
+     - Content is being saved into a seperate array, ensuring the data will be sent to the server
    - CONS:
      - If the server fails, all the entered data will not be saved. Instead of the the last entered birthday information.
      - Depending on the size of the array, it could cause a heavy load on the front end / back end
@@ -23,14 +23,14 @@ __*Problem*__: Only the last “name”, “birthMonth”, “birthDay”, “bi
      - Ensures content is being saved into a seperate array, ensuring the data will be sent to the server
    - CONS:
      - If the server fails, possibly some or all the entered data will not be saved. It will be hard to determine for the user what was saved and what wasn't until they view the list.
-     - Depending on the size of the array, and if it is HTTP / HTTPS with the amount of concurrent requests, it may take time to complete. It will require to present a 'Submitting' screen to make sure the user doesn't leave the site in the middle of the submissions. Not the best as far as performance goes.
+     - Depending on the size of the array, and worst case if the api is using HTTP (with 3 concurrent requests), it may take time to complete. It will require to present a 'Submitting' screen to make sure the user doesn't leave the site in the middle of the submission. Not the best as far as performance and user experience goes.
      - Increased number of calls to the server
 3. Update the 'Yes' button to submit to the service and reset the wizard.
    - PROS:
      - Front end work is only needed
      - Low cost to the user as it only requires updating the 'Yes' button to and refactoring the submittion function to support resetting the wizard.
    - CONS:
-	   - Increased number of calls to the server
+     - Increased number of calls to the server
 
  ### RECOMMENDATION
  
