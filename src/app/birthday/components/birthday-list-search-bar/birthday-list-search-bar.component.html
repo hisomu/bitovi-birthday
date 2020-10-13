@@ -1,0 +1,21 @@
+<form [formGroup]="searchForm" fxLayout="row wrap" fxLayoutAlign="space-between space-between">
+	<mat-form-field fxFlex="1 1 49%">
+		<input matInput formControlName="name" type="text" placeholder="Name Contains" autocomplete="off">
+	</mat-form-field>
+
+	<mat-form-field fxFlex="1 1 49%">
+		<input matInput formControlName="email" type="text" placeholder="Email">
+	</mat-form-field>
+
+	<mat-form-field fxFlex="1 1 33%">
+		<input matInput formControlName="month" type="text" placeholder="Birth Month" autocomplete="off">
+	</mat-form-field>
+
+	<mat-form-field fxFlex="1 1 33%">
+		<input matInput formControlName="day" type="text" placeholder="Birth Day" autocomplete="off">
+	</mat-form-field>
+
+	<mat-form-field fxFlex="1 1 33%">
+		<input matInput formControlName="year" type="text" placeholder="Birth Year" autocomplete="off">
+	</mat-form-field>
+</form>

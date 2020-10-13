@@ -1,0 +1,5 @@
+<bt-birthday-header></bt-birthday-header>
+<div class='inner'>
+	<bt-birthday-list-search-bar (valueChanges)="runSearch($event)" #birthdaySearch></bt-birthday-list-search-bar>
+	<bt-birthday-list [birthday$]="birthday$" (resetSearch)="clearSearch()"></bt-birthday-list>
+</div>

@@ -1,0 +1,96 @@
+<div>
+	<content-loader *ngIf="loadingList; else resultTable" [animate]=true speed="2" primaryColor='#404040' secondaryColor='#808080'>
+		<svg:rect x="5" y="15" rx="2" ry="2" width="120" height="6" />
+		<svg:rect x="145" y="15" rx="2" ry="2" width="25" height="6" />
+		<svg:rect x="185" y="15" rx="2" ry="2" width="25" height="6" />
+		<svg:rect x="225" y="15" rx="2" ry="2" width="100" height="6" />
+		<svg:rect x="340" y="15" rx="2" ry="2" width="25" height="6" />
+		<svg:rect x="375" y="15" rx="2" ry="2" width="25" height="6" />
+
+		<svg:rect x="5" y="30" rx="2" ry="2" width="120" height="6" />
+		<svg:rect x="145" y="30" rx="2" ry="2" width="25" height="6" />
+		<svg:rect x="185" y="30" rx="2" ry="2" width="25" height="6" />
+		<svg:rect x="225" y="30" rx="2" ry="2" width="100" height="6" />
+		<svg:rect x="340" y="30" rx="2" ry="2" width="25" height="6" />
+		<svg:rect x="375" y="30" rx="2" ry="2" width="25" height="6" />
+
+		<svg:rect x="5" y="45" rx="2" ry="2" width="120" height="6" />
+		<svg:rect x="145" y="45" rx="2" ry="2" width="25" height="6" />
+		<svg:rect x="185" y="45" rx="2" ry="2" width="25" height="6" />
+		<svg:rect x="225" y="45" rx="2" ry="2" width="100" height="6" />
+		<svg:rect x="340" y="45" rx="2" ry="2" width="25" height="6" />
+		<svg:rect x="375" y="45" rx="2" ry="2" width="25" height="6" />
+
+		<svg:rect x="5" y="60" rx="2" ry="2" width="120" height="6" />
+		<svg:rect x="145" y="60" rx="2" ry="2" width="25" height="6" />
+		<svg:rect x="185" y="60" rx="2" ry="2" width="25" height="6" />
+		<svg:rect x="225" y="60" rx="2" ry="2" width="100" height="6" />
+		<svg:rect x="340" y="60" rx="2" ry="2" width="25" height="6" />
+		<svg:rect x="375" y="60" rx="2" ry="2" width="25" height="6" />
+
+		<svg:rect x="5" y="75" rx="2" ry="2" width="120" height="6" />
+		<svg:rect x="145" y="75" rx="2" ry="2" width="25" height="6" />
+		<svg:rect x="185" y="75" rx="2" ry="2" width="25" height="6" />
+		<svg:rect x="225" y="75" rx="2" ry="2" width="100" height="6" />
+		<svg:rect x="340" y="75" rx="2" ry="2" width="25" height="6" />
+		<svg:rect x="375" y="75" rx="2" ry="2" width="25" height="6" />
+
+		<svg:rect x="5" y="90" rx="2" ry="2" width="120" height="6" />
+		<svg:rect x="145" y="90" rx="2" ry="2" width="25" height="6" />
+		<svg:rect x="185" y="90" rx="2" ry="2" width="25" height="6" />
+		<svg:rect x="225" y="90" rx="2" ry="2" width="100" height="6" />
+		<svg:rect x="340" y="90" rx="2" ry="2" width="25" height="6" />
+		<svg:rect x="375" y="90" rx="2" ry="2" width="25" height="6" />
+
+		<svg:rect x="5" y="105" rx="2" ry="2" width="120" height="6" />
+		<svg:rect x="145" y="105" rx="2" ry="2" width="25" height="6" />
+		<svg:rect x="185" y="105" rx="2" ry="2" width="25" height="6" />
+		<svg:rect x="225" y="105" rx="2" ry="2" width="100" height="6" />
+		<svg:rect x="340" y="105" rx="2" ry="2" width="25" height="6" />
+		<svg:rect x="375" y="105" rx="2" ry="2" width="25" height="6" />
+
+		<svg:rect x="5" y="120" rx="2" ry="2" width="120" height="6" />
+		<svg:rect x="145" y="120" rx="2" ry="2" width="25" height="6" />
+		<svg:rect x="185" y="120" rx="2" ry="2" width="25" height="6" />
+		<svg:rect x="225" y="120" rx="2" ry="2" width="100" height="6" />
+		<svg:rect x="340" y="120" rx="2" ry="2" width="25" height="6" />
+		<svg:rect x="375" y="120" rx="2" ry="2" width="25" height="6" />
+	</content-loader>
+
+	<ng-template #resultTable>
+		<mat-table *ngIf="resultCount > 0; else noResults" #orgTable [dataSource]="dataSource" matSort>
+
+			<ng-container matColumnDef="{{ col.id }}" *ngFor="let col of columns; trackBy: tbSvc.trackByAny">
+				<mat-header-cell *matHeaderCellDef mat-sort-header [fxFlex]="col.flex" [ngClass]="col.class"> {{ col.val }} </mat-header-cell>
+				<mat-cell *matCellDef="let element" [fxFlex]="col.flex" [ngClass]="col.class">
+					<ng-container *ngTemplateOutlet="col.template; context: {$implicit: element[col.id]}"></ng-container>
+				</mat-cell>
+			</ng-container>
+
+			<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+			<mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+		</mat-table>
+
+		<ng-template #noResults>
+			<br /><br />
+			<ng-container *ngIf="refreshCount<2; else noSearchResults">
+				<h2>So yeah, looks like there aren't any birthdays yet?</h2>
+				<em>Pssst, maybe you aren't running the backend right now?</em>
+			</ng-container>
+
+			<ng-template #noSearchResults>
+				<div fxLayout="column" fxLayoutAlign="center center">
+					<h2>No birthdays found with those criteria.</h2>
+					<button type='button' mat-flat-button (click)='searchReset()' color="accent">Reset the Search</button>
+				</div>
+			</ng-template>
+		</ng-template>
+	</ng-template>
+
+</div>
+
+<ng-template #colName let-val>{{ val }}</ng-template>
+<ng-template #colEmail let-val>{{ val }}</ng-template>
+<ng-template #colMonth let-val>{{ val }}</ng-template>
+<ng-template #colDay let-val>{{ val }}</ng-template>
+<ng-template #colYear let-val>{{ val }}</ng-template>

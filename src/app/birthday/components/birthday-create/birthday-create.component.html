@@ -1,0 +1,99 @@
+<bt-birthday-header [birthday]="birthday$ | async"></bt-birthday-header>
+
+<mat-horizontal-stepper linear #stepper>
+	<mat-step [stepControl]="nameFormGroup">
+		<form [formGroup]="nameFormGroup">
+		<ng-template matStepLabel>What is your name?</ng-template>
+		<mat-form-field>
+		  <mat-label>Name</mat-label>
+		  <input matInput formControlName="name" placeholder="Ex. Homer Simpson" required>
+		  <mat-error *ngIf="nameFormGroup.errors && nameFormGroup.errors.invalid">
+			Enter a name
+			</mat-error>
+		</mat-form-field>
+		<div class="search-button-container">
+			<button mat-flat-button color="accent" type="submit" matStepperNext>
+				Next
+			</button>
+		</div>
+	  </form>
+	</mat-step>
+	<mat-step [stepControl]="emailFormGroup">
+	  <form [formGroup]="emailFormGroup">
+		<ng-template matStepLabel>What is your email address?</ng-template>
+		<mat-form-field>
+		  <mat-label>Email Address</mat-label>
+		  <input matInput formControlName="email" placeholder="Ex. hsimpson@gmail.com"
+				required>
+			<mat-error *ngIf="!(emailFormGroup.errors && emailFormGroup.errors.invalid)">
+				Please enter a valid email address
+			</mat-error>
+		</mat-form-field>
+		<div class="search-button-container">
+		  <button mat-stroked-button color="accent" matStepperPrevious>Back</button>
+		  <button mat-flat-button color="accent" matStepperNext>Next</button>
+		</div>
+	  </form>
+	</mat-step>
+	<mat-step [stepControl]="monthFormGroup">
+	  <form [formGroup]="monthFormGroup">
+		<ng-template matStepLabel>In what month were you born?</ng-template>
+		<mat-form-field>
+		  <mat-label>Birth Month</mat-label>
+		  <mat-select type="text" formControlName="month" placeholder="Month" required>
+			<mat-option *ngFor="let month of months; trackBy:tbSvc.trackByAny" value="{{ month }}">{{ month | titlecase }}</mat-option>
+		  </mat-select>
+		</mat-form-field>
+		<div class="search-button-container">
+		  <button mat-stroked-button color="accent" matStepperPrevious>Back</button>
+		  <button mat-flat-button color="accent" matStepperNext>Next</button>
+		</div>
+	  </form>
+	</mat-step>
+	<mat-step [stepControl]="dayFormGroup">
+	  <form [formGroup]="dayFormGroup">
+		<ng-template matStepLabel>What day in {{ birthday.birthMonth }} were you born?</ng-template>
+		<mat-form-field>
+		  <mat-label>Birth Day</mat-label>
+		  <input matInput formControlName="day" placeholder="Day"
+				 required>
+				 <mat-error *ngIf="!(emailFormGroup.errors && emailFormGroup.errors.invalid)">
+					 Please enter a valid day
+				 </mat-error>
+		</mat-form-field>
+		<div class="search-button-container">
+		  <button mat-stroked-button color="accent" matStepperPrevious>Back</button>
+		  <button mat-flat-button color="accent" matStepperNext>Next</button>
+		</div>
+	  </form>
+	</mat-step>
+	<mat-step [stepControl]="yearFormGroup">
+	  <form [formGroup]="yearFormGroup">
+		<ng-template matStepLabel>In what year {{ birthday.birthMonth }}, {{ birthday.birthDay }} were you born?</ng-template>
+		<mat-form-field>
+		  <mat-label>Birth Year</mat-label>
+		  <input matInput formControlName="year" placeholder="Year"
+				 required>
+				 <mat-error *ngIf="!(emailFormGroup.errors && emailFormGroup.errors.invalid)">
+					 Please enter a valid year
+				 </mat-error>
+		</mat-form-field>
+		<div class="search-button-container">
+		  <button mat-stroked-button color="accent" matStepperPrevious>Back</button>
+		  <button mat-flat-button color="accent" matStepperNext>Next</button>
+		</div>
+	  </form>
+	</mat-step>
+	<mat-step>
+	  <ng-template matStepLabel>Done</ng-template>
+	  <p>Would you like to add another person?</p>
+	  <div class="search-button-container">
+		<button mat-stroked-button color="accent" (click)="addBirthday(false)" matStepperNext>
+			No
+		</button>
+		<button mat-flat-button color="accent" (click)="addBirthday(true)" matStepperNext>
+			Yes
+		</button>
+	  </div>
+	</mat-step>
+</mat-horizontal-stepper>

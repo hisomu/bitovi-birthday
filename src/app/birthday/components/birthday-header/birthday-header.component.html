@@ -1,0 +1,15 @@
+<div class="mat-app-background wrap mat-elevation-z4">
+	<div>
+		<a mat-button routerLink="/birthdays">Birthdays</a>
+		<ng-container *ngIf="birthday">
+			<span class='crumb'>\\</span><h4 *ngIf="birthday">{{ birthday.name }}</h4>
+		</ng-container>
+	</div>
+
+	<a mat-stroked-button routerLink="/birthdays/new" *ngIf="!birthday">
+		<mat-icon class="mat-12">add</mat-icon>
+	</a>
+</div>
+
+<mat-divider></mat-divider>
+

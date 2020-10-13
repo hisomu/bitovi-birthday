@@ -1,0 +1,12 @@
+.mat-row:nth-child(even) {
+	filter: brightness(0.85);
+}
+
+.mat-row:hover{
+	filter: brightness(1.25);
+	cursor: pointer;
+}
+
+.no {
+	justify-content: flex-end;
+}
