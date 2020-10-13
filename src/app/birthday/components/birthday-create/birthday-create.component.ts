@@ -42,10 +42,7 @@ export class BirthdayCreateComponent implements OnDestroy, OnInit {
 		'December'
 	];
 
-	birthday: Birthday = {
-		name: '',
-		email: ''
-	};
+	birthday: Birthday;
 
 	constructor(
 		private readonly fb: FormBuilder,
@@ -69,6 +66,8 @@ export class BirthdayCreateComponent implements OnDestroy, OnInit {
 		this.yearFormGroup = this.fb.group({
 			year: ['', [Validators.min(1900), Validators.max((new Date()).getFullYear()), Validators.pattern('[0-9]*')]]
 		});
+
+		this.resetBirthday();
 
 		this.nameFormGroup
 			.valueChanges
@@ -126,15 +125,22 @@ export class BirthdayCreateComponent implements OnDestroy, OnInit {
 		.pipe(take(1))
 		.subscribe(
 			() => {
-				// reset the variables
-				this.birthday = {
-					name: '',
-					email: ''
-				};
+				this.resetBirthday();
 				if (reset)
 					this.stepper.reset();
 				else
 					this.router.navigate(['birthdays']);
 			});
+	}
+
+	// reset the variables
+	private resetBirthday(): void {
+		this.birthday = {
+			name: '',
+			email: '',
+			birthMonth: '',
+			birthDay: 0,
+			birthYear: 0
+		};
 	}
 }

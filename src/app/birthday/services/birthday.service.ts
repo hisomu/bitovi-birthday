@@ -39,7 +39,7 @@ export class BirthdayService {
 							found = b.name.includes(birthday.name);
 						if (birthday.email.length > 0)
 							found = found && b.email.includes(birthday.email);
-						if (birthday.birthMonth > 0)
+						if (birthday.birthMonth.length > 0)
 							found = found && b.birthMonth === birthday.birthMonth;
 						if (birthday.birthDay > 0)
 							found = found && b.birthDay === birthday.birthDay;

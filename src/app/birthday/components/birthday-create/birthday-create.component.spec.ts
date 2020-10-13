@@ -1,5 +1,5 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
@@ -78,10 +78,48 @@ describe('BirthdayCreateComponent', () => {
 			.toHaveBeenCalledWith(['birthdays']);
 	});
 
+	it('should be able to create multiple birthdays', fakeAsync(() => {
+		fixture.detectChanges();
+		setForm();
+
+		tick(1000);
+
+		expect(component.birthday.name)
+			.toEqual('Homer Simpson');
+		expect(component.birthday.email)
+			.toEqual('homer.simpson@gmail.com');
+		expect(component.birthday.birthDay.toString())
+			.toEqual('12');
+
+		component.addBirthday(true);
+
+		component.nameFormGroup.controls.name.setValue('Marge Simpson');
+		component.emailFormGroup.controls.email.setValue('marge.simpson@gmail.com');
+		component.monthFormGroup.controls.month.setValue('October');
+		component.dayFormGroup.controls.day.setValue('1');
+		component.yearFormGroup.controls.year.setValue('1956');
+
+		component.stepper.selectedIndex = 5;
+
+		tick(1000);
+
+		expect(component.birthday.name)
+			.toEqual('Marge Simpson');
+		expect(component.birthday.email)
+			.toEqual('marge.simpson@gmail.com');
+		expect(component.birthday.birthDay.toString())
+			.toEqual('1');
+
+		component.addBirthday(false);
+
+		expect(mockBirthdayService.save$)
+			.toHaveBeenCalledTimes(2);
+	}));
+
 	function setForm(): void {
 		component.nameFormGroup.controls.name.setValue('Homer Simpson');
 		component.emailFormGroup.controls.email.setValue('homer.simpson@gmail.com');
-		component.monthFormGroup.controls.month.setValue('5');
+		component.monthFormGroup.controls.month.setValue('May');
 		component.dayFormGroup.controls.day.setValue('12');
 		component.yearFormGroup.controls.year.setValue('1956');
 

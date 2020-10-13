@@ -2,7 +2,7 @@ export interface Birthday {
 	id?: string;
 	name: string;
 	email: string;
-	birthMonth?: number;
+	birthMonth?: string;
 	birthDay?: number;
 	birthYear?: number;
 }
